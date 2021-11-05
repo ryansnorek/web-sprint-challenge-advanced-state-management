@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import * as actions from "../actions";
+import { v4 as uuid } from 'uuid';
 
 const AddForm = (props) => {
     const [state, setState] = useState({
@@ -10,19 +11,22 @@ const AddForm = (props) => {
         description:""
     });
 
+    
     const { dispatch, errors } = props;
     const { name, position, nickname, description } = state;
-    
+
     const handleChange = e => {
         setState({ ...state, [e.target.name]:e.target.value });
     }
     const handleSubmit = e => {
+        console.log("DDDDDDD", uuid())
         e.preventDefault();
         if (name === "" || position === "" || nickname === "") {
             dispatch(actions.setError("Invalid entry"));
         }
         dispatch(actions.addSmurf({ name, position, nickname, description }));
     }
+
     return(<section>
         <h2>Add Smurf</h2>
         <form onSubmit={handleSubmit}>

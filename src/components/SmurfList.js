@@ -14,6 +14,6 @@ import { connect } from "react-redux";
 }
 
 export default connect(state => {
-    const { smurfs, isLoading } = state;
-    return { smurfs, isLoading }
+    const { smurfs, isLoading, errors } = state;
+    return { smurfs, isLoading, errors }
 })(SmurfList);

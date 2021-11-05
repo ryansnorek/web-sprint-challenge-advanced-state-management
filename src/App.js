@@ -15,14 +15,12 @@ class App extends Component {
   }
 
   render() {
-    const { isLoading, errors } = this.props;
+    const { isLoading } = this.props;
 
     if (isLoading) {
       return <h1>Loading...</h1>
     }
-    if (errors) {
-      return <h1>Error Loading Data</h1>
-    }
+
     return (
       <div className="App">
         <Header />
@@ -36,6 +34,6 @@ class App extends Component {
   }
 }
 export default connect(state => {
-  const { smurfs, isLoading, errors } = state;
-  return { smurfs, isLoading, errors };
+  const { smurfs, isLoading } = state;
+  return { smurfs, isLoading };
  })(App);
