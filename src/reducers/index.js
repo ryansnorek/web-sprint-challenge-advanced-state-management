@@ -1,8 +1,20 @@
 
 export const initialState = {
-}
+    smurfs: [],
+    isLoading: false,
+    errors: ""
+};
 
-const reducer = ()=>{
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        // fetch
+        // fetch success
+        // fetch failure
+        // add smurf
+        // errors
+        default:
+            return state;
+    }
 }
 
 //**************DO NOT EDIT ANY CODE BEYOND THIS POINT**************//
