@@ -8,23 +8,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 
 class App extends Component {
-
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(actions.fetchData());
-  }
-
+    this.props.dispatch(actions.fetchData());
+}
   render() {
-    const { isLoading } = this.props;
-
-    if (isLoading) {
+    if (this.props.isLoading) {
       return <h1>Loading...</h1>
     }
-
     return (
       <div className="App">
         <Header />
-
         <main>
           <SmurfList/>
           <AddForm/>
@@ -33,7 +26,4 @@ class App extends Component {
     );
   }
 }
-export default connect(state => {
-  const { smurfs, isLoading } = state;
-  return { smurfs, isLoading };
- })(App);
+export default connect(state => state.isLoading)(App);

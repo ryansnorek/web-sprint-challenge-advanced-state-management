@@ -3,30 +3,30 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 import { v4 as uuid } from 'uuid';
 
-const AddForm = (props) => {
-    const [state, setState] = useState({
-        name:"",
-        position:"",
-        nickname:"",
-        description:""
-    });
-
-    
-    const { dispatch, errors } = props;
+const AddForm = props => {
+    const [state, setState] = useState({ name:"", position:"", nickname:"", description:"" });
     const { name, position, nickname, description } = state;
+    const { dispatch, errors } = props;
 
     const handleChange = e => {
         setState({ ...state, [e.target.name]:e.target.value });
-    }
+    };
     const handleSubmit = e => {
-        console.log("DDDDDDD", uuid())
         e.preventDefault();
         if (name === "" || position === "" || nickname === "") {
             dispatch(actions.setError("Invalid entry"));
         }
-        dispatch(actions.addSmurf({ name, position, nickname, description }));
-    }
-
+        dispatch(
+            actions.addSmurf(
+                {  
+                    id: uuid(), 
+                    name, 
+                    position, 
+                    nickname, 
+                    description 
+                })
+            );
+    };
     return(<section>
         <h2>Add Smurf</h2>
         <form onSubmit={handleSubmit}>
@@ -54,7 +54,4 @@ const AddForm = (props) => {
     </section>);
 }
 
-export default connect(state => {
-    const { smurfs, errors } = state;
-    return { smurfs, errors };
-})(AddForm);
+export default connect(state => state.errors)(AddForm);
