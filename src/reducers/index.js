@@ -11,23 +11,25 @@ const reducer = (state = initialState, action) => {
         case (actions.FETCH_START):
             return ({
                 ...state,
-                smurfs: [],
-                isLoading: true,
-                errors: ""
             });
         case (actions.FETCH_SUCCESS):
-            console.log("REDUCER FETCH")
             return ({
                 ...state,
                 smurfs: action.payload,
-                isLoading: false,
-                errors: ""
             });
         case (actions.FETCH_FAILURE):
             return ({
                 ...state,
-                smurfs: [],
-                isLoading: false,
+                errors: action.payload
+            });
+        case (actions.ADD_SMURF):
+            return ({
+                ...state,
+                smurfs: [...state.smurfs, action.payload]
+            });
+        case (actions.SET_ERROR):
+            return ({
+                ...state,
                 errors: action.payload
             });
         default:

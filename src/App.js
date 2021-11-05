@@ -9,22 +9,20 @@ import "./App.css";
 
 class App extends Component {
 
-  // state = {
-  //   smurfs: this.props.smurfs,
-  //   isLoading: this.props.isLoading,
-  //   errors: this.props.errors
-  // }
-  
   componentDidMount() {
-    
     const { dispatch } = this.props;
     dispatch(actions.fetchData());
-
   }
 
   render() {
-    console.log("RENDER STATE",this.props)
- 
+    const { isLoading, errors } = this.props;
+
+    if (isLoading) {
+      return <h1>Loading...</h1>
+    }
+    if (errors) {
+      return <h1>Error Loading Data</h1>
+    }
     return (
       <div className="App">
         <Header />
@@ -37,15 +35,7 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return { 
-    smurfs: state.smurfs,
-    isLoading: state.isLoading,
-    errors: state.errors
-  }
-};
-export default connect(mapStateToProps)(App);
-
-//Task List:
-//1. Connect the fetchSmurfs actions to the App component.
-//2. Call the fetchSmurfs action when the component mounts.
+export default connect(state => {
+  const { smurfs, isLoading, errors } = state;
+  return { smurfs, isLoading, errors };
+ })(App);
