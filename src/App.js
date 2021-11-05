@@ -1,15 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import actions
+import * as actions from "./actions";
 import AddForm from './components/AddForm';
 import SmurfList from './components/SmurfList';
 import Header from './components/Header';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 
 class App extends Component {
+
+  // state = {
+  //   smurfs: this.props.smurfs,
+  //   isLoading: this.props.isLoading,
+  //   errors: this.props.errors
+  // }
+  
+  componentDidMount() {
+    
+    const { dispatch } = this.props;
+    dispatch(actions.fetchData());
+
+  }
+
   render() {
+    console.log("RENDER STATE",this.props)
+ 
     return (
       <div className="App">
         <Header />
@@ -23,8 +38,11 @@ class App extends Component {
   }
 }
 const mapStateToProps = state => {
-  const { smurfs, isLoading, errors } = state;
-  return { smurfs, isLoading, errors };
+  return { 
+    smurfs: state.smurfs,
+    isLoading: state.isLoading,
+    errors: state.errors
+  }
 };
 export default connect(mapStateToProps)(App);
 

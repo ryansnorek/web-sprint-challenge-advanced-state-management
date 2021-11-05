@@ -1,5 +1,4 @@
-// import * as actions  from "../actions"; 
-
+import * as actions from "../actions"; 
 
 export const initialState = {
     smurfs: [],
@@ -9,18 +8,28 @@ export const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        // case (actions.FETCH_START):
-        //     return ({
-        //         ...state,
-        //         smurfs: [],
-        //         isLoading: true,
-        //         errors: ""
-        //     });
-        // fetch
-        // fetch success
-        // fetch failure
-        // add smurf
-        // errors
+        case (actions.FETCH_START):
+            return ({
+                ...state,
+                smurfs: [],
+                isLoading: true,
+                errors: ""
+            });
+        case (actions.FETCH_SUCCESS):
+            console.log("REDUCER FETCH")
+            return ({
+                ...state,
+                smurfs: action.payload,
+                isLoading: false,
+                errors: ""
+            });
+        case (actions.FETCH_FAILURE):
+            return ({
+                ...state,
+                smurfs: [],
+                isLoading: false,
+                errors: action.payload
+            });
         default:
             return state;
     }
